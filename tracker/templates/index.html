@@ -80,6 +80,9 @@
                 <option value="">All</option>
                 <option value="Food">Food</option>
                 <option value="Transport">Transport</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Health">Health</option>
                 <!-- Add other categories -->
             </select>
             <label for="start_date">Start Date:</label>
@@ -92,7 +95,7 @@
 
         <table class="expense-table">
             <tr>
-                <th>Amount</th>
+                <th>৳Amount</th>
                 <th>Category</th>
                 <th>Date</th>
                 <th>Description</th>
@@ -111,7 +114,7 @@
             </tr>
             {% endfor %}
             <tr>
-                <td colspan="5" style="text-align: center;">Total Expense: {{ total_amount }}</td>
+                <td colspan="5" style="text-align: center;">Total Expense:৳ {{ total_amount }}</td>
             </tr>
         </table>
 

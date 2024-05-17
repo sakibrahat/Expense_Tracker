@@ -51,6 +51,13 @@
         h2 {
             margin-top: 20px;
         }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -59,14 +66,15 @@
         <h2>Total Expenses by Category</h2>
         <ul>
             {% for category_total in category_totals %}
-                <li>{{ category_total.category }}: ${{ category_total.total }}</li>
+                <li>{{ category_total.category }}: ৳{{ category_total.total }}</li>
             {% endfor %}
         </ul>
-        <h2>Optional Summaries</h2>
-        <p>Weekly Total: ${{ weekly_total }}</p>
-        <p>Monthly Total: ${{ monthly_total }}</p>
-        <p>Yearly Total: ${{ yearly_total }}</p>
-        <!-- You can add more detailed summaries here if needed -->
+        <h2>Detailed Summaries</h2>
+        <p>Weekly Total: ৳{{ weekly_total }}</p>
+        <p>Monthly Total: ৳{{ monthly_total }}</p>
+        <p>Yearly Total: ৳{{ yearly_total }}</p>
+        
     </div>
+    <a class="back-link" href="{% url 'index' %}">Back to Expense List</a>
 </body>
 </html>
