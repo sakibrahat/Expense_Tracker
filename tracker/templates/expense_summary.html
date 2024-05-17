@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your meta tags, title, and styles -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Expense Summary</h1>
+        <h2>Total Expenses by Category</h2>
+        <ul>
+            {% for category_total in category_totals %}
+                <li>{{ category_total.category }}: ${{ category_total.total }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Optional Summaries</h2>
+        <p>Weekly Total: ${{ weekly_total }}</p>
+        <p>Monthly Total: ${{ monthly_total }}</p>
+        <p>Yearly Total: ${{ yearly_total }}</p>
+        <!-- You can add more detailed summaries here if needed -->
+    </div>
+</body>
+</html>

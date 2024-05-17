@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            color: #333;
+        }
+
+        .add-expense-link {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .expense-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .expense-table th, .expense-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .expense-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
+
+        .expense-table td {
+            text-align: center;
+        }
+
+        .expense-table td a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Expense Tracker</h1>
+        <a class="add-expense-link" href="{% url 'add_expense' %}">Add Expense</a>
+
+        <!-- Filtering Form -->
+        <form method="get" action="{% url 'index' %}">
+            <label for="category">Category:</label>
+            <select name="category" id="category">
+                <option value="">All</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <!-- Add other categories -->
+            </select>
+            <label for="start_date">Start Date:</label>
+            <input type="date" name="start_date" id="start_date">
+            <label for="end_date">End Date:</label>
+            <input type="date" name="end_date" id="end_date">
+            <button type="submit">Apply Filters</button>
+            <button style="background-color: rgb(240, 240, 240);"><a style="color: black;text-decoration: none;" href="{% url 'index' %}">Clear Filters</a> <!-- Clear Filters Link --></button>
+        </form>
+
+        <table class="expense-table">
+            <tr>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            {% for expense in expenses %}
+            <tr>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.category }}</td>
+                <td>{{ expense.date }}</td>
+                <td>{{ expense.description }}</td>
+                <td>
+                    <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
+                    <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5" style="text-align: center;">Total Expense: {{ total_amount }}</td>
+            </tr>
+        </table>
+
+    
+        <a class="back-link" href="{% url 'expense_summary' %}">Expense Summary</a>
+    </div>
+</body>
+</html>
