@@ -67,14 +67,29 @@
             text-decoration: none;
         }
     </style>
+    <script>
+        function validateDates() {
+            var startDate = document.getElementById('start_date').value;
+            var endDate = document.getElementById('end_date').value;
+
+            if (startDate && endDate) {
+                if (endDate <= startDate) {
+                    alert("End Date cannot be less than or equal to Start Date.");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1 class="title">Expense Tracker</h1>
         <a class="add-expense-link" href="{% url 'add_expense' %}">Add Expense</a>
 
-       
-        <form method="get" action="{% url 'index' %}">
+        <!-- Filtering Form -->
+        <form method="get" action="{% url 'index' %}" onsubmit="return validateDates()">
             <label for="category">Category:</label>
             <select name="category" id="category">
                 <option value="">All</option>
@@ -83,14 +98,16 @@
                 <option value="Entertainment">Entertainment</option>
                 <option value="Utilities">Utilities</option>
                 <option value="Health">Health</option>
-                
+                <!-- Add other categories if needed -->
             </select>
             <label for="start_date">Start Date:</label>
             <input type="date" name="start_date" id="start_date">
             <label for="end_date">End Date:</label>
             <input type="date" name="end_date" id="end_date">
             <button type="submit">Apply Filters</button>
-            <button style="background-color: rgb(240, 240, 240);"><a style="color: black;text-decoration: none;" href="{% url 'index' %}">Clear Filters</a></button>
+            <button style="background-color: rgb(240, 240, 240);">
+                <a style="color: black; text-decoration: none;" href="{% url 'index' %}">Clear Filters</a>
+            </button>
         </form>
 
         <table class="expense-table">
@@ -103,24 +120,23 @@
                 <th>Actions</th>
             </tr>
             {% for expense in expenses %}
-<tr>
-    <td>{{ forloop.counter }}</td>
-    <td>{{ expense.amount }}</td>
-    <td>{{ expense.category }}</td>
-    <td>{{ expense.date }}</td>
-    <td>{{ expense.description }}</td>
-    <td>
-        <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
-        <a href="{% url 'delete_expense' expense.id %}">Delete</a>
-    </td>
-</tr>
-{% endfor %}
             <tr>
-                <td colspan="5" style="text-align: center;">Total Expense:৳ {{ total_amount }}</td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ expense.amount }}</td>
+                <td>{{ expense.category }}</td>
+                <td>{{ expense.date }}</td>
+                <td>{{ expense.description }}</td>
+                <td>
+                    <a href="{% url 'edit_expense' expense.id %}">Edit</a> |
+                    <a href="{% url 'delete_expense' expense.id %}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="6" style="text-align: center;">Total Expense:৳ {{ total_amount }}</td>
             </tr>
         </table>
 
-    
         <a class="back-link" href="{% url 'expense_summary' %}">Expense Summary</a>
     </div>
 </body>
