@@ -54,10 +54,10 @@ def edit_expense(request, expense_id):
 
 
 def expense_summary(request):
-    # Calculate total expenses for each category
+    
     category_totals = Expense.objects.values('category').annotate(total=Sum('amount'))
 
-    # Optionally, provide weekly, monthly, and yearly summaries
+    
     today = timezone.now()
     week_start = today - timedelta(days=today.weekday())
     month_start = today.replace(day=1)
