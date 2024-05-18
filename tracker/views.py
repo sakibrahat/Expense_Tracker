@@ -1,5 +1,5 @@
 from datetime import timedelta
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import Expense
 from .forms import ExpenseForm
@@ -35,8 +35,10 @@ def add_expense(request):
     return render(request, 'add_expense.html', {'form': form})
 
 def delete_expense(request, expense_id):
-    expense = Expense.objects.get(id=expense_id)
-    expense.delete()
+    expense = get_object_or_404(Expense, id=expense_id)
+    if request.method == 'POST':
+        expense.delete()
+        return redirect('index')
     return redirect('index')
 
 def edit_expense(request, expense_id):
